@@ -7,17 +7,17 @@ public class Socio {
     private String nombre;
     private String apellido;
     private String dni;
-    private String mail;
+    private String email;
     private String password;
     private LocalDate fechaNacimiento;
     private Direccion direccion;
 
-    public Socio(Long id, String nombre, String apellido, String dni, String mail, String password, LocalDate fechaNacimiento, Direccion direccion) {
+    public Socio(Long id, String nombre, String apellido, String dni, String email, String password, LocalDate fechaNacimiento, Direccion direccion) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
-        this.mail = mail;
+        this.email = email;
         this.password = password;
         this.fechaNacimiento = fechaNacimiento;
         this.direccion = direccion;
@@ -57,12 +57,12 @@ public class Socio {
         this.dni = dni;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setEmail(String mail) {
+        this.email = email;
     }
 
     public String getPassword() {
