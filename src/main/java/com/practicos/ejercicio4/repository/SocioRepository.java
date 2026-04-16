@@ -9,6 +9,10 @@ public class SocioRepository {
 
     List<Socio> socios = new ArrayList<>();
 
+    public void guardarSocio(Socio socio){
+        socios.add(socio);
+    }
+
     public boolean existsByDni(String dni){
         if (dni == null){
             return false;

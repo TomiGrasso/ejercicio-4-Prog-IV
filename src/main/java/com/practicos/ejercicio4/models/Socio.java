@@ -1,5 +1,7 @@
 package com.practicos.ejercicio4.models;
 
+import com.practicos.ejercicio4.dtos.DireccionDTO;
+
 import java.time.LocalDate;
 
 public class Socio {
