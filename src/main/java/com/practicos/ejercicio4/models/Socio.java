@@ -1,8 +1,7 @@
 package com.practicos.ejercicio4.models;
 
-import com.practicos.ejercicio4.dtos.DireccionDTO;
-
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Socio {
     private Long id;
@@ -11,16 +10,18 @@ public class Socio {
     private String dni;
     private String email;
     private String password;
+    private LocalDateTime fechaRegistro;
     private LocalDate fechaNacimiento;
     private Direccion direccion;
 
-    public Socio(Long id, String nombre, String apellido, String dni, String email, String password, LocalDate fechaNacimiento, Direccion direccion) {
+    public Socio(Long id, String nombre, String apellido, String dni, String email, String password, LocalDateTime fechaRegistro, LocalDate fechaNacimiento, Direccion direccion) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
         this.email = email;
         this.password = password;
+        this.fechaRegistro = fechaRegistro;
         this.fechaNacimiento = fechaNacimiento;
         this.direccion = direccion;
     }
@@ -71,8 +72,16 @@ public class Socio {
         return password;
     }
 
-    public void setPassword(String contrasenia) {
-        this.password = contrasenia;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public LocalDateTime getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(LocalDateTime fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 
     public LocalDate getFechaNacimiento() {

@@ -3,14 +3,37 @@ package com.practicos.ejercicio4.services;
 import com.practicos.ejercicio4.dtos.DireccionDTO;
 import com.practicos.ejercicio4.dtos.SocioRequestDTO;
 import com.practicos.ejercicio4.dtos.SocioResponseDTO;
+import com.practicos.ejercicio4.exception.DniDuplicadoException;
 import com.practicos.ejercicio4.models.Direccion;
 import com.practicos.ejercicio4.models.Socio;
+import com.practicos.ejercicio4.repository.SocioRepository;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 @Service
 public class SocioService {
 
     Long contadorId = 1L;
+
+    public SocioResponseDTO crearSocio(SocioRequestDTO dto){
+
+        Socio socio = new Socio();
+        crearSocioDesdeDTO(dto);
+        socio.setId(contadorId);
+        socio.setFechaRegistro(LocalDateTime.now());
+
+        if (SocioRepository.existsByDni(dto.getDni())) {
+            throw new DniDuplicadoException();
+        }
+
+        SocioRepository.guardarSocio(socio);
+        contadorId++;
+
+        //------------------------------------//
+
+        return null;
+    }
 
     private SocioResponseDTO crearResponseDesdeModelo(Socio socio){
 
