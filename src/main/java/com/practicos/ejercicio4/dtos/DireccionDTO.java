@@ -1,23 +1,25 @@
 package com.practicos.ejercicio4.dtos;
 
+import com.practicos.ejercicio4.validation.OnCreate;
+import com.practicos.ejercicio4.validation.OnUpdate;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public class DireccionDTO {
 
-    @NotBlank(message = "Calle Obligatoria.")
-    @Size(min = 5, max = 150, message = "Mínimo 5 caractéres, máximo 100.")
+    @NotBlank(groups = {OnCreate.class, OnUpdate.class}, message = "Calle Obligatoria.")
+    @Size(groups = {OnCreate.class, OnUpdate.class}, min = 5, max = 150, message = "Mínimo 5 caractéres, máximo 100.")
     private String calle;
 
-    @NotBlank(message = "Ciudad Obligatoria.")
-    @Size(min = 3, max = 80, message = "Mínimo 3 caractéres, máximo 80.")
+    @NotBlank(groups = {OnCreate.class, OnUpdate.class}, message = "Ciudad Obligatoria.")
+    @Size(groups = {OnCreate.class, OnUpdate.class}, min = 3, max = 80, message = "Mínimo 3 caractéres, máximo 80.")
     private String ciudad;
 
-    @NotBlank(message = "Provincia Obligatoria.")
+    @NotBlank(groups = {OnCreate.class, OnUpdate.class}, message = "Provincia Obligatoria.")
     private String provincia;
 
-    @Pattern(regexp = "\\d{4}", message = "Formato requerido 0000.")
+    @Pattern(groups = {OnCreate.class, OnUpdate.class}, regexp = "\\d{4}", message = "Formato requerido 0000.")
     private String codigoPostal;
 
     public String getCalle() {

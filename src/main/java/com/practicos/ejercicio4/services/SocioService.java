@@ -18,29 +18,30 @@ public class SocioService {
 
     public SocioResponseDTO crearSocio(SocioRequestDTO dto){
 
-        Socio socio = new Socio();
-        crearSocioDesdeDTO(dto);
-        socio.setId(contadorId);
-        socio.setFechaRegistro(LocalDateTime.now());
-
         if (SocioRepository.existsByDni(dto.getDni())) {
             throw new DniDuplicadoException();
         }
 
+        Socio socio = crearSocioDesdeDTO(dto);
+        socio.setId(contadorId);
+        socio.setFechaRegistro(LocalDateTime.now());
+
         SocioRepository.guardarSocio(socio);
         contadorId++;
 
-        //------------------------------------//
+        SocioResponseDTO response = crearResponseDesdeModelo(socio);
 
-        return null;
+        return response;
     }
 
     private SocioResponseDTO crearResponseDesdeModelo(Socio socio){
 
         SocioResponseDTO response = new SocioResponseDTO();
+        response.setId(socio.getId());
         response.setNombre(socio.getNombre());
         response.setApellido(socio.getApellido());
         response.setEmail(socio.getEmail());
+        response.setFechaRegistro(socio.getFechaRegistro());
         response.setDireccion(mapearModeloAdto(socio.getDireccion()));
 
         return response;

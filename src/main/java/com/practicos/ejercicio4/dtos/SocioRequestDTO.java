@@ -4,10 +4,7 @@ import com.practicos.ejercicio4.validation.DniValido;
 import com.practicos.ejercicio4.validation.OnCreate;
 import com.practicos.ejercicio4.validation.OnUpdate;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 
@@ -31,12 +28,12 @@ public class SocioRequestDTO {
     @Size(groups = {OnCreate.class}, min = 8, message = "Contraseña muy corta, debe tener al menos 8 caracteres.")
     private String password;
 
-    @NotBlank(groups = {OnCreate.class}, message = "Fecha de nacimiento obligatoria.")
+    @NotNull(groups = {OnCreate.class}, message = "Fecha de nacimiento obligatoria.")
     @Past(groups = {OnCreate.class, OnUpdate.class}, message = "La fecha no puede ser posterior a hoy.")
     private LocalDate fechaNacimiento;
 
+    @NotNull(groups = {OnCreate.class}, message = "Dirección obligatoria.")
     @Valid
-    @NotBlank(groups = {OnCreate.class}, message = "Dirección obligatoria.")
     private DireccionDTO direccion;
 
     public String getNombre() {
