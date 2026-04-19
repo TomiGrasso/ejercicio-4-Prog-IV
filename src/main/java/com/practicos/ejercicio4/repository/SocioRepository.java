@@ -13,7 +13,19 @@ public class SocioRepository {
         socios.add(socio);
     }
 
+    public static Socio buscarPorId(Long id){
+
+        for (Socio socio: socios){
+            if (socio.getId().equals(id)){
+                return socio;
+            }
+        }
+
+        return null;
+    }
+
     public static boolean existsByDni(String dni){
+
         if (dni == null){
             return false;
         }

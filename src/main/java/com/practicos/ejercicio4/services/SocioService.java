@@ -10,6 +10,7 @@ import com.practicos.ejercicio4.repository.SocioRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class SocioService {
@@ -32,6 +33,26 @@ public class SocioService {
         SocioResponseDTO response = crearResponseDesdeModelo(socio);
 
         return response;
+    }
+
+    public SocioResponseDTO reemplazarSocio(Long id, SocioRequestDTO dto){
+
+        Socio socio = SocioRepository.buscarPorId(id);
+        mapearParaReemplazar(dto, socio);
+        SocioRepository.guardarSocio(socio);
+
+        return crearResponseDesdeModelo(socio);
+    }
+
+    //Mapeos
+
+    private void mapearParaReemplazar(SocioRequestDTO dto, Socio socio){
+
+        socio.setNombre(dto.getNombre());
+        socio.setApellido(dto.getApellido());
+        socio.setEmail(dto.getEmail());
+        socio.setFechaNacimiento(dto.getFechaNacimiento());
+        socio.setDireccion(crearDireccionDesdeDTO(dto.getDireccion()));
     }
 
     private SocioResponseDTO crearResponseDesdeModelo(Socio socio){

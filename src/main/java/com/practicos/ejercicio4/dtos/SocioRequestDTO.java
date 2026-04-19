@@ -32,7 +32,7 @@ public class SocioRequestDTO {
     @Past(groups = {OnCreate.class, OnUpdate.class}, message = "La fecha no puede ser posterior a hoy.")
     private LocalDate fechaNacimiento;
 
-    @NotNull(groups = {OnCreate.class}, message = "Dirección obligatoria.")
+    @NotNull(groups = {OnCreate.class, OnUpdate.class}, message = "Dirección obligatoria.")
     @Valid
     private DireccionDTO direccion;
 

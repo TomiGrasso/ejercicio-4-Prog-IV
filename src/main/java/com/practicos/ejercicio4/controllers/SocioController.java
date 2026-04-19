@@ -5,14 +5,12 @@ import com.practicos.ejercicio4.dtos.SocioRequestDTO;
 import com.practicos.ejercicio4.dtos.SocioResponseDTO;
 import com.practicos.ejercicio4.services.SocioService;
 import com.practicos.ejercicio4.validation.OnCreate;
+import com.practicos.ejercicio4.validation.OnUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
@@ -22,7 +20,7 @@ public class SocioController {
 
     @Autowired
     private SocioService service;
-
+    
     @PostMapping
     public ResponseEntity<SocioResponseDTO>
         crear(@Validated(OnCreate.class) @RequestBody SocioRequestDTO dto){
@@ -34,5 +32,14 @@ public class SocioController {
                     .created(location)
                     .body(creado);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<SocioResponseDTO>
+        reemplazar(@PathVariable Long id,
+                   @Validated(OnUpdate.class) @RequestBody SocioRequestDTO dto){
+
+        return ResponseEntity.ok(service.reemplazarSocio(id, dto));
+    }
+
 
 }
