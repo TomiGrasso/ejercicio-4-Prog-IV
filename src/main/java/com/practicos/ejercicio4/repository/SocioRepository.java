@@ -7,13 +7,17 @@ import java.util.List;
 
 public class SocioRepository {
 
-    static List<Socio> socios = new ArrayList<>();
+    List<Socio> socios = new ArrayList<>();
 
-    public static void guardarSocio(Socio socio){
+    public void guardarSocio(Socio socio){
         socios.add(socio);
     }
 
-    public static Socio buscarPorId(Long id){
+    public List<Socio> obtenerTodosLosSocios(){
+        return socios;
+    }
+
+    public Socio buscarPorId(Long id){
 
         for (Socio socio: socios){
             if (socio.getId().equals(id)){
@@ -24,7 +28,7 @@ public class SocioRepository {
         return null;
     }
 
-    public static boolean existsByDni(String dni){
+    public boolean existsByDni(String dni){
 
         if (dni == null){
             return false;

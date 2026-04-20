@@ -10,16 +10,18 @@ import com.practicos.ejercicio4.repository.SocioRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class SocioService {
 
+    private SocioRepository socioRepository = new SocioRepository();
     Long contadorId = 1L;
 
     public SocioResponseDTO crearSocio(SocioRequestDTO dto){
 
-        if (SocioRepository.existsByDni(dto.getDni())) {
+        if (socioRepository.existsByDni(dto.getDni())) {
             throw new DniDuplicadoException();
         }
 
@@ -27,7 +29,7 @@ public class SocioService {
         socio.setId(contadorId);
         socio.setFechaRegistro(LocalDateTime.now());
 
-        SocioRepository.guardarSocio(socio);
+        socioRepository.guardarSocio(socio);
         contadorId++;
 
         SocioResponseDTO response = crearResponseDesdeModelo(socio);
@@ -37,11 +39,31 @@ public class SocioService {
 
     public SocioResponseDTO reemplazarSocio(Long id, SocioRequestDTO dto){
 
-        Socio socio = SocioRepository.buscarPorId(id);
+        Socio socio = socioRepository.buscarPorId(id);
         mapearParaReemplazar(dto, socio);
-        SocioRepository.guardarSocio(socio);
+        socioRepository.guardarSocio(socio);
 
         return crearResponseDesdeModelo(socio);
+    }
+
+    public List<SocioResponseDTO> obtenerSocios() {
+
+        List<Socio> socios = socioRepository.obtenerTodosLosSocios();
+        List<SocioResponseDTO> response = new ArrayList<>();
+
+        for (Socio socio : socios) {
+            response.add(crearResponseDesdeModelo(socio));
+        }
+
+        return response;
+    }
+
+    public SocioResponseDTO obtenerSocioPorId(Long id){
+
+        Socio socio = socioRepository.buscarPorId(id);
+        SocioResponseDTO response = crearResponseDesdeModelo(socio);
+
+        return response;
     }
 
     //Mapeos

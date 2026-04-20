@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/socios")
@@ -20,7 +21,18 @@ public class SocioController {
 
     @Autowired
     private SocioService service;
-    
+
+    @GetMapping
+    public ResponseEntity<List<SocioResponseDTO>> mostrar(){
+        return ResponseEntity.ok(service.obtenerSocios());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<SocioResponseDTO>
+        mostrarPorId(@PathVariable Long id){
+            return ResponseEntity.ok(service.obtenerSocioPorId(id));
+    }
+
     @PostMapping
     public ResponseEntity<SocioResponseDTO>
         crear(@Validated(OnCreate.class) @RequestBody SocioRequestDTO dto){
