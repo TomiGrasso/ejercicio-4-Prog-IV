@@ -8,7 +8,7 @@ public class SocioResponseDTO {
     private String apellido;
     private String email;
     private LocalDateTime fechaRegistro;
-    //private String estadoMembresia;
+    private String estadoMembresia;
     private DireccionDTO direccion;
 
     public Long getId() {
@@ -51,9 +51,9 @@ public class SocioResponseDTO {
         this.fechaRegistro = fechaRegistro;
     }
 
-    //public String getEstadoMembresia() {return estadoMembresia;}
+    public String getEstadoMembresia() {return estadoMembresia;}
 
-    //public void setEstadoMembresia(String estadoMembresia) {this.estadoMembresia = estadoMembresia;}
+    public void setEstadoMembresia(String estadoMembresia) {this.estadoMembresia = estadoMembresia;}
 
     public DireccionDTO getDireccion() {
         return direccion;

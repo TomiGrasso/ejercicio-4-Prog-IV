@@ -12,9 +12,10 @@ public class Socio {
     private String password;
     private LocalDateTime fechaRegistro;
     private LocalDate fechaNacimiento;
+    private LocalDate fechaVencimientoMembresia;
     private Direccion direccion;
 
-    public Socio(Long id, String nombre, String apellido, String dni, String email, String password, LocalDateTime fechaRegistro, LocalDate fechaNacimiento, Direccion direccion) {
+    public Socio(Long id, String nombre, String apellido, String dni, String email, String password, LocalDateTime fechaRegistro, LocalDate fechaNacimiento, LocalDate fechaVencimientoMembresia,Direccion direccion) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -23,6 +24,7 @@ public class Socio {
         this.password = password;
         this.fechaRegistro = fechaRegistro;
         this.fechaNacimiento = fechaNacimiento;
+        this.fechaVencimientoMembresia = fechaVencimientoMembresia;
         this.direccion = direccion;
     }
 
@@ -90,6 +92,14 @@ public class Socio {
 
     public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public LocalDate getFechaVencimientoMembresia() {
+        return fechaVencimientoMembresia;
+    }
+
+    public void setFechaVencimientoMembresia(LocalDate fechaVencimientoMembresia) {
+        this.fechaVencimientoMembresia = fechaVencimientoMembresia;
     }
 
     public Direccion getDireccion() {

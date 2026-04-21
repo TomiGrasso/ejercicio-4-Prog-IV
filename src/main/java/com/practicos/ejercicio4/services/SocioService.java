@@ -9,6 +9,7 @@ import com.practicos.ejercicio4.models.Socio;
 import com.practicos.ejercicio4.repository.SocioRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ public class SocioService {
         Socio socio = crearSocioDesdeDTO(dto);
         socio.setId(contadorId);
         socio.setFechaRegistro(LocalDateTime.now());
+        socio.setFechaVencimientoMembresia(LocalDate.now().plusYears(1));
 
         socioRepository.guardarSocio(socio);
         contadorId++;
@@ -66,6 +68,18 @@ public class SocioService {
         return response;
     }
 
+    private String calcularEstadoMembresia(LocalDate fechaVencimientoMembresia){
+
+        LocalDate hoy = LocalDate.now();
+        if (fechaVencimientoMembresia.isBefore(hoy)){
+            return "VENCIDO";
+        }
+        else if (fechaVencimientoMembresia.isAfter(hoy)){
+            return "ACTIVO";
+        }
+        else return "SIN MEMBRESIA";
+    }
+
     //Mapeos
 
     private void mapearParaReemplazar(SocioRequestDTO dto, Socio socio){
@@ -85,6 +99,7 @@ public class SocioService {
         response.setApellido(socio.getApellido());
         response.setEmail(socio.getEmail());
         response.setFechaRegistro(socio.getFechaRegistro());
+        response.setEstadoMembresia(calcularEstadoMembresia(socio.getFechaVencimientoMembresia()));
         response.setDireccion(mapearModeloAdto(socio.getDireccion()));
 
         return response;
